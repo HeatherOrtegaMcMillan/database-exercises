@@ -24,11 +24,13 @@ FROM `albums`
 Where artist = 'Pink Floyd';
 
 -- Year Sgt. Pepper's Lonely Hearts Club Band: 1967
+-- Note: use \ before a ' to escape (aka ignore) if it's in the thing you want to search for
 SELECT 
 	`name`,
 	release_date
 From albums
 Where `name` = "Sgt. Pepper's Lonely Hearts Club Band";
+
 
 -- Nevermind Genres: Grunge, Alternative Rock
 SELECT
@@ -76,7 +78,7 @@ WHERE sales < 20
 ORDER BY sales;
 
 /* Albums in the Rock Genre: Sgt. Pepper's Lonely Hearts Club Band, 1, Abbey Road, Born in the U.S.A., Supernatural
-Other albums don't show up because WHERE clause only shows you exact matches for what's in the quotes. In order to see "Hard Rock" you would have to type that in for where or use a different clause*/
+Other albums don't show up because WHERE clause only shows you exact matches for what's in the quotes. In order to see "Hard Rock" you would have to type that in for WHERE or use some different clause instructions*/
 SELECT
 	`name`,
 	genre
