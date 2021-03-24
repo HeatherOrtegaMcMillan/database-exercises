@@ -17,6 +17,8 @@
 - Data lives on Tables inside the Databases
 - Can have many tables inside one database
 - Tables = HONKIN' Spreadsheets
+- to show current db `SELECT database();`
+
 
 ## Data Types
 - [Different INT Type Sizes](https://dev.mysql.com/doc/refman/5.7/en/integer-types.html)
