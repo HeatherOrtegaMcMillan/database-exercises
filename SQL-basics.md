@@ -3,6 +3,7 @@
 - to Run current Query Command ⌘ R
 - Run All Queries Option ⌥ Command ⌘ R
 - the button for this is middle right (also lists keyboard shortcuts)
+- [Here's a link to all the keyboard shortcuts](https://sequelpro.com/docs/get-started/keyboard-shortcuts)
 
 ## Syntax Notes
 - Be sure to end every line with a ;
