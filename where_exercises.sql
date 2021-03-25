@@ -41,7 +41,7 @@ FROM employees
 WHERE last_name NOT LIKE 'e%' 
 		AND last_name LIKE '%e';	
 
-/* 7. Find all current or previous employees employees whose last name starts and ends with 'E'. (889 records returned) 
+/* 7. Find all current or previous employees employees whose last name starts and ends with 'E'. (899 records returned) 
 */
 
 SELECT *
