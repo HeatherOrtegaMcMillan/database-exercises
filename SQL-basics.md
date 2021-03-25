@@ -19,6 +19,14 @@
 - Tables = HONKIN' Spreadsheets
 - to show current db `SELECT database();`
 
+## Where Clause
+- ORDER OF OPERATIONS IS SUPER IMPORTANT!! 
+1. NOT
+2. AND
+3. OR
+- LIKE uses one thing
+- IN uses a list of things
+
 
 ## Data Types
 - [Different INT Type Sizes](https://dev.mysql.com/doc/refman/5.7/en/integer-types.html)
