@@ -14,12 +14,17 @@ SELECT *
 FROM `employees`
 WHERE first_name = 'Irena' or first_name = 'Vidya' or first_name = 'Maya';
 
--- 4. Find all current or previous employees with first names 'Irena', 'Vidya', or 'Maya', using OR, and who is male. (180241 Records Returned)
+-- 4. Find all current or previous employees with first names 'Irena', 'Vidya', or 'Maya', using OR, and who is male. (180241 Records Returned, this is All people named Irena Vidya and Maya and all the males)
 
 SELECT *
 FROM employees
 WHERE first_name IN ('Irena', 'Vidya', 'Maya')
 		OR gender = 'M';
+		
+-- All employees named Irena Vidya or Maya who are male, the cross section of the names and the males (441 Records Returned)
+SELECT *
+FROM employees
+WHERE (first_name = 'Irena' OR first_name = 'Vidya' OR first_name = 'Maya') AND gender = 'M';
 		
 -- 5. Find all current or previous employees whose last name starts with 'E'. (7330 Records Returned)
 
@@ -69,6 +74,13 @@ WHERE `birth_date` LIKE '%-12-25';
 
 
 -- 10. Find all current or previous employees hired in the 90s and born on Christmas. (362 records returned)
+
+SELECT *
+FROM employees
+WHERE hire_date LIKE '199%'
+	AND birth_date LIKE '%-12-25';
+
+
 SELECT *
 FROM `employees`
 WHERE `hire_date` BETWEEN '1990-01-01' AND '1999-12-31'
