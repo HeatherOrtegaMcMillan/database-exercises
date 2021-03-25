@@ -39,4 +39,8 @@
     - if verboten, you'll get an error
     - allowing NULLs will give you holes in your data
 
-
+## Limits and Offset
+- LIMIT will only return the first x number
+- OFFSET x will start on the x+1 number
+- Always last instruction in the query
+- use ORDER BY to get different sets
