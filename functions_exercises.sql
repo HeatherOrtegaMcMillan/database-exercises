@@ -61,11 +61,6 @@ SELECT
 FROM `employees`
 LIMIT 20;
 
-
-
-SELECT MONTH(birth_date)
-FROM `employees`
-LIMIT 10;
 	
 
 	
