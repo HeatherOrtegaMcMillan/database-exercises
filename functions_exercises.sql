@@ -1,6 +1,7 @@
 -- 1. Copy the ORDER BY exercise AND save it AS functions_exercises.sql.
 
 -- 2. WRITE a QUERY TO TO find ALL employees whose LAST NAME STARTS AND ENDS WITH 'E'. USE concat() TO combine their FIRST AND LAST NAME together AS a single COLUMN named full_name.
+	-- 899 Records returned 
 
 USE `employees`;
 SHOW TABLES;
@@ -13,13 +14,15 @@ FROM employees
 WHERE last_name LIKE 'e%e';
 
 -- 3. CONVERT the NAMES produced IN your LAST QUERY TO ALL uppercase.
+	-- 899 Records returned
 
 SELECT Upper(CONCAT(first_name,' ',last_name)) 
 AS 'full_name'
 FROM employees
 WHERE last_name LIKE 'e%e';
 
--- 4. Find ALL employees hired IN the 90s AND born ON Christmas. USE datediff() FUNCTION TO find how many days they have been working AT the company (Hint: You will also need TO USE NOW() OR CURDATE()),
+-- 4. Find ALL employees hired IN the 90s AND born ON Christmas. USE datediff() FUNCTION TO find how many days they have been working AT the company (Hint: You will also need TO USE NOW() OR CURDATE()). 
+	-- 362 records returned
 
 SELECT 
 	CONCAT(first_name, ' ', last_name) AS 'employee_name',
@@ -34,9 +37,11 @@ ORDER BY days_at_company DESC;
 -- Smallest: $ 38,623 
 -- Largest: $ 158,220
 
+
 DESCRIBE `salaries`;
 SELECT min(salary), max(salary)
-FROM salaries;
+FROM salaries
+WHERE to_date like '9999%';
 
 -- 6. USE your knowledge of built IN SQL functions TO generate a username FOR ALL of the employees. A username should be ALL lowercase, AND consist of the
 -- FIRST CHARACTER of the employees FIRST NAME 
