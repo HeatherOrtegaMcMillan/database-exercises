@@ -46,16 +46,26 @@ FROM salaries;
 -- AND the LAST two digits of the YEAR that they were born
 
 SELECT 
-	LOWER(CONCAT(
-		SUBSTRING(first_name, 1, 1), -- FIRST CHARACTER of the employees FIRST NAME 
-		SUBSTRING(last_name, 1, 4), -- FIRST 4 characters of the employees LAST NAME
-		'_',                        -- an underscore
-		SUBSTRING(birth_date, 6, 2), -- the MONTH the employee was born, 
-		SUBSTRING(YEAR(birth_date), 3, 2)) -- LAST two digits of the YEAR that they were born
-	) AS 'username',
+	LOWER(
+		CONCAT(
+			SUBSTRING(first_name, 1, 1), -- FIRST CHARACTER of the employees FIRST NAME 
+			SUBSTRING(last_name, 1, 4), -- FIRST 4 characters of the employees LAST NAME
+			'_',                        -- an underscore
+			SUBSTRING(birth_date, 6, 2), -- the MONTH the employee was born, 
+			SUBSTRING(YEAR(birth_date), 3, 2) -- LAST two digits of the YEAR that they were born
+			) 
+		) AS 'username',
 	first_name,
 	last_name,
 	birth_date
-FROM employees;
+FROM `employees`
+LIMIT 20;
+
+
+
+SELECT MONTH(birth_date)
+FROM `employees`
+LIMIT 10;
+	
 
 	
