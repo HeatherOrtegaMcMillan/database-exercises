@@ -55,8 +55,8 @@ ORDER BY count(*) DESC, last_name;
 -- 7. Find ALL ALL employees WITH FIRST NAMES 'Irena', 'Vidya', OR 'Maya'. USE COUNT(*) AND GROUP BY TO find the number of employees FOR EACH gender WITH those names.
  	-- Irena	M	144
 	-- Irena	F	97
-	-- Maya	M	146
-	-- Maya	F	90
+	-- Maya		M	146
+	-- Maya		F	90
 	-- Vidya	M	151
 	-- Vidya	F	81
 
