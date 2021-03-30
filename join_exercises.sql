@@ -39,9 +39,9 @@ JOIN users AS u ON r.`id` = u.`role_id`;
 
 SELECT 
 	r.name AS role_name, 
-	COUNT(r.`name`) AS number_people_with_role
+	COUNT(u.`name`) AS number_people_with_role
 FROM roles AS r
-JOIN users AS u ON u.`role_id` = r.id
+LEFT JOIN users AS u ON u.`role_id` = r.id
 GROUP BY role_name;
 
 -- 1. USE the employees database.
@@ -50,16 +50,18 @@ USE `employees`;
 
 -- 2.Using the example in the Associative Table Joins section as a guide, write a query that shows each department along with the name of the current manager for that department.
 
-SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, d.dept_name
-FROM employees AS e
-JOIN dept_emp AS de
-  ON de.emp_no = e.emp_no
-JOIN departments AS d
-  ON d.dept_no = de.dept_no
-WHERE de.to_date = '9999-01-01' AND e.emp_no = 10001;
 
 -- DEPARTMENT -------- MANAGER.current --
 -- department name ----first_name last_name -- 
+/* Marketing		Vishwani Minakawa
+	Finance	Isamu 	Legleitner
+	Human Resources	Karsten Sigstam
+	Production		Oscar Ghazalie
+	Development		Leon DasSarma
+	Quality 			Management	Dung Pesch
+	Sales				Hauke Zhang
+	Research			Hilary Kambil
+	Customer 			Service	Yuchang Weedman */
 
 SELECT d.`dept_name` AS department_name,
 CONCAT(e.`first_name`, ' ', e.`last_name`) AS current_manager
@@ -67,6 +69,8 @@ FROM `dept_manager` AS dm
 JOIN employees AS e ON e.`emp_no` = dm.`emp_no`
 JOIN `departments` AS d ON d.`dept_no` = dm.`dept_no`
 WHERE dm.`to_date` LIKE '9999%';
+
+
 
 -- 3. Find the name of all departments currently managed by women.
 	-- Finance, Human Resources, Development and Research are all currently managed by females.
@@ -191,18 +195,26 @@ LIMIT 1;
 
 -- 10. Bonus Find the names of all current employees, their department name, and their current manager's name.
 
+SELECT 
+something AS employee_name
+something AS department_name
+something AS current_manager;
+
+
 -- 11. Bonus Who is the highest paid employee within each department.
 SELECT
+	d.`dept_name`,
 	e.first_name,
 	e.last_name
- 	,d.`dept_name`,
- 	s.`salary`
+ 	,
+ 	max(s.`salary`)
 FROM `employees` AS e
 JOIN salaries AS s USING(`emp_no`)
 JOIN `dept_emp` AS de USING(`emp_no`)
 JOIN departments AS d USING(dept_no)
 WHERE s.`to_date` > curdate()
-ORDER BY s.`salary` DESC
+GROUP BY d.dept_name
+ORDER BY s.`salary` DESC 
 LIMIT 10;
 
 SELECT 
