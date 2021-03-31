@@ -214,6 +214,46 @@ WHERE to_date > now();
 
 -- 1. Find ALL the department NAMES that currently have female managers.
 
+SELECT d.`dept_name` AS department_name,
+CONCAT(e.`first_name`, ' ', e.`last_name`) AS current_manager,
+e.gender AS `gender`
+FROM `dept_manager` AS dm
+JOIN employees AS e ON e.`emp_no` = dm.`emp_no`
+JOIN `departments` AS d USING(`dept_no`) -- alternative syntax
+WHERE dm.`to_date` LIKE '9999%' 
+	AND e.`gender` LIKE 'F';
+
 -- 2. Find the FIRST AND LAST NAME of the employee WITH the highest salary.
 
+-- select first and last name from employees table
+SELECT 
+Concat(first_name, ' ', last_name),
+salaries.salary
+-- join to salaries table
+FROM employees
+JOIN salaries ON salaries.emp_no = employees.emp_no
+-- sub query to find max salary
+WHERE salary = 
+		(
+			SELECT MAX(salary)
+			FROM salaries
+		); 
+
 -- 3. Find the department NAME that the employee WITH the highest salary works in.
+
+-- select first and last name from employees table
+SELECT 
+Concat(first_name, ' ', last_name) AS Employee_name,
+salaries.salary AS salary,
+departments.`dept_name` AS department_name
+-- join to salaries table
+FROM employees
+JOIN salaries ON salaries.emp_no = employees.emp_no
+JOIN dept_emp ON `dept_emp`.`emp_no` = employees.emp_no
+JOIN departments ON departments.`dept_no` = `dept_emp`.dept_no
+-- sub query to find max salary
+WHERE salary = 
+		(
+			SELECT MAX(salary)
+			FROM salaries
+		); 
