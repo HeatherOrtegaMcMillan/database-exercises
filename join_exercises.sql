@@ -193,15 +193,22 @@ WHERE dm.`to_date` LIKE '9999%' AND s.`to_date` LIKE '9999%'
 LIMIT 1;
 
 
--- 10. Bonus Find the names of all current employees, their department name, and their current manager's name.
+-- 10. Bonus Find the names of all current employees, their department name, and their current manager's name. *still working*
 
 SELECT 
-something AS employee_name
-something AS department_name
-something AS current_manager;
+	CONCAT(e.first_name, ' ', e.last_name) AS employee_name, 
+	d.dept_name AS department_name
+	-- something AS current_manager
+FROM `employees` AS e
+JOIN `dept_emp` AS de USING (emp_no)
+JOIN `dept_manager` AS dm ON e.emp_no = dm.emp_no
+		AND dm.to_date > curdate()
+JOIN departments AS d ON d.dept_no = de.`dept_no`
+WHERE de.to_date > curdate();
 
 
--- 11. Bonus Who is the highest paid employee within each department.
+
+-- 11. Bonus Who is the highest paid employee within each department. *still working*
 SELECT
 	d.`dept_name`,
 	e.first_name,
@@ -219,12 +226,12 @@ LIMIT 10;
 
 SELECT 
 	d.dept_name,
-	max(s.`salary`) AS max_salary
-	/* e.first_name,
-	e.`last_name` */
+	s.`salary` AS salary,
+	e.first_name,
+	e.`last_name` 
 FROM `departments` AS d
 JOIN dept_emp AS de USING(dept_no)
 JOIN `salaries` AS s ON s.emp_no = de.`emp_no`
 JOIN `employees` AS e ON e.`emp_no` = s.`emp_no`
-GROUP BY d.`dept_name`;
+GROUP BY d.dept_name;
 
