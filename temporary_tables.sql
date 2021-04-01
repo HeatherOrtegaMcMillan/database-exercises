@@ -84,6 +84,7 @@ SELECT
 FROM dept_emp AS de 
 JOIN salaries AS s USING(emp_no) 
 		WHERE s.to_date > now() AND de.`to_date` > now()
+JOIN departments AS d USING(`dept_no`)
 GROUP BY de.dept_no
 LIMIT 50;
 
@@ -98,7 +99,6 @@ FROM salaries AS s;
 -- query both together
 SELECT AVG(s.`salary`), Stddev(s.salary)
 FROM salaries AS s;
-
 
 
 
@@ -144,10 +144,16 @@ SELECT
 FROM dept_salary_comp;
 
 
+
+USE `florence12`;
+
+
 -- IMPROVED FINAL QUERY NOT USING MY RANDOM CREATED TABLE
 SELECT 
-	new_dno,
-	new_ds,
+	d.dept_name,
+	new_ds AS dept_salary,
 	(new_ds - (SELECT AVG(`salary`) FROM employees.salaries)) / (SELECT STDDEV(salary) FROM employees.salaries)
 		 AS z_score
-FROM dept_salary_comp;
+FROM dept_salary_comp
+JOIN employees.departments AS d ON d.`dept_no` = dept_salary_comp.new_dno
+ORDER BY z_score;
