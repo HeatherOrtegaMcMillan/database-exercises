@@ -41,6 +41,26 @@ WHERE emp_no IN
 	) AND to_date > curdate();
 
 
+-- Ray's solution. Disect this and see what's going on
+SELECT
+      t.title AS 'Titles Held by Aamods',
+      COUNT(t.title) AS 'Total Aamods Who Held Title'
+FROM titles AS t
+WHERE
+      t.emp_no IN
+      (
+            SELECT
+                  e.emp_no
+            FROM employees AS e
+            JOIN salaries AS s
+                  ON e.emp_no = s.emp_no
+                        AND s.to_date > CURDATE()
+            WHERE
+                first_name LIKE 'Aamod'
+      )
+GROUP BY
+      t.title
+;
 
 -- 3. How many people IN the employees TABLE are NO longer working FOR the company? Give the answer IN a COMMENT IN your code.
 
@@ -59,7 +79,7 @@ WHERE emp_no NOT IN
 		WHERE to_date > curdate()
 	);
 	
--- 2,402,124	employees still working
+-- 240,124	employees still working
 SELECT `emp_no`
 FROM `dept_emp`
 WHERE to_date > curdate();
@@ -152,11 +172,11 @@ SELECT
 FROM salaries
 WHERE to_date > now()
 	AND salary >
-	(
-		SELECT max(salary) - STD(salary)
-		FROM salaries
-		WHERE to_date > now()
-	);
+		(
+			SELECT max(salary) - STD(salary)
+			FROM salaries
+			WHERE to_date > now()
+		);
 		
 	
 -- write query to find current MAX salary	158,220
