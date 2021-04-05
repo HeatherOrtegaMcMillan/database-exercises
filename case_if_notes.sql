@@ -127,3 +127,44 @@ SELECT
     gender,
     gender = 'Female' AS is_female
 FROM customers;
+
+-- the following is notes from the SQL quiz 
+
+SELECT * FROM `albums`;
+
+SELECT `name`, count(*)
+FROM albums 
+GROUP BY genre;
+
+SELECT artist
+FROM albums
+WHERE artist LIKE '%ma%';
+
+SELECT SUBSTR("Data Scienterrific", 10, LENGTH("Data Scienterrific"));
+
+SELECT 
+c.firstname AS firstname,
+c.lastname AS lastname, 
+cp. prod_id AS prod_desc
+FROM customers AS c
+JOIN current_products AS cp ON c.prod_id = prod_id;
+  
+USE employees;  
+SELECT min(n), max(n), sum(n), STDDEV(n)
+FROM numbers;
+
+SELECT count(*)
+FROM employees;
+
+SELECT 
+make,
+count(*)
+FROM cars
+GROUP BY make;
+
+SELECT
+ `dept_no`,
+ count(*)
+FROM `dept_manager`
+GROUP BY dept_no;
+

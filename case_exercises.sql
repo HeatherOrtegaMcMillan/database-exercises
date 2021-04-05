@@ -1,5 +1,22 @@
 -- Case Exercises
 -- 1. WRITE a QUERY that RETURNS ALL employees (emp_no), their department number, their START DATE, their END DATE, AND a NEW COLUMN 'is_current_employee' that IS a 1 IF the employee IS still WITH the company AND 0 IF not.
+-- THANK YOU XAVIER for the GROUP_CONCAT tip. saved my life 
+
+
+-- This is the final functioning query
+USE employees;
+SELECT 
+	de.emp_no AS emp_no, 
+	group_concat(de.dept_no, ' ') AS dept_no,
+	e.`hire_date` AS start_date,
+	MAX(de.to_date) AS end_date, 
+	IF(max(de.to_date) > curdate(), TRUE, FALSE)
+		AS is_curent_employee
+FROM employees.dept_emp AS de
+JOIN employees.employees AS e USING(emp_no)
+GROUP BY emp_no;
+
+-- THIS DIDNT WORK vvv
 USE employees;
 SELECT  
 	e.emp_no	AS emp_no,
@@ -11,26 +28,16 @@ SELECT
 FROM employees AS e
 JOIN dept_emp AS de USING(emp_no)
 JOIN florence12.cur_emp_dates AS ced USING(emp_no);
-
-USE `florence12`;
-CREATE TEMPORARY TABLE cur_emp_dates
-SELECT emp_no, 
-MAX(to_date) AS max
-FROM employees.dept_emp
-GROUP BY emp_no;
-
-
-DROP TABLE cur_emp_dates;
-
-SELECT * FROM cur_emp_dates;
+ 
 
 -- #### notes on how to filter out duplicates ####
-/* to_date IS 9999 = current 
+/* 
+	to_date IS 9999 = current 
 	to_date IS NOT 9999 
-	hire_date != from_date   */
--- hire_date = from_date AND to_date IS NOT 9999 = other
- 
- 
+	hire_date != from_date
+	hire_date = from_date AND to_date IS NOT 9999 = other
+*/
+
 -- people who have duplicate values in the emp_no table
 SELECT 
 emp_no,
@@ -40,16 +47,12 @@ dept_emp
 GROUP BY emp_no
 HAVING count > 1;
 
-
-SELECT * FROM dept_emp
-LIMIT 50; -- 331603
+SELECT * FROM dept_emp; -- 331603
 SELECT * FROM employees; -- 300024
 
 SELECT * FROM dept_emp
 WHERE emp_no = 10040;
  
-
-
 
 -- 2. WRITE a QUERY that RETURNS ALL employee NAMES (previous AND current), AND a NEW COLUMN 'alpha_group' that RETURNS 'A-H', 'I-Q', OR 'R-Z' depending ON the FIRST letter of their LAST name.
 DESCRIBE employees;
@@ -79,4 +82,4 @@ SELECT
 		END AS decade_born,
 	count(*) AS 'count'
 FROM employees
-GROUP BY decade_born;
+GROUP BY decade_born
